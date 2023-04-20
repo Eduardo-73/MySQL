@@ -103,4 +103,40 @@ from empleados
 where salarem <> all (select salarem
 					 from empleados); 
              
-             
+
+-- 
+drop view if exists invitados;
+create view invitados
+	(numInvitado, nombreInvitado, emailIvitado)
+as 
+select numcli, concat_ws('',nomcli,ape1cli,ape2cli), email
+from clientes
+union distinct -- no salen repetidos
+select numem, concat_ws('',nomem,ape1em,ape2em), dniem
+from empleados
+/*union
+select numcolab, nombrecompleto, emailcolab
+from colaboradores
+*/
+;
+
+select * from invitados;
+
+/*
+Para la base de datos de promociones:
+Prepara una vista que se llamará CATALOGOPROFUCTOS que tenga la referencia del artículo,
+código y nombre de categoría, nombre del artículo, precio base y el preio de venta de HOY
+*/
+
+/*
+Para la base de datos de EMPRESACLASE:
+Prepara una vista que se llamará LISTINTELEFÓNICO en la que cada usuario podrá consultar la extensión 
+telefónica de los empleados de SU DEPARTAMENTO
+PISTAS ==> USAR UNA FUNCION DE MYSQL USER()
+AL CREAR LA VISTA TENER EN CUENTA ESTO:
+[SQL SECURITY {DEFINIR|INVOKER}*]
+*/
+
+-- select user();
+
+
